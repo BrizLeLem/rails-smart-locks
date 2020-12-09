@@ -13,10 +13,6 @@ class ReportsController < ApplicationController
     csv_options = { col_sep: ',', headers: :first_row }
 
     CSV.parse(report, csv_options) do |timestamp, lock_id, status_change, kind|
-      timestamp = timestamp[1]
-      lock_id = lock_id[1]
-      kind = kind[1]
-      status_change = status[1]
       lock = Lock.find_by_id(lock_id[1])
       if lock
         lock.status = status_change[1]
